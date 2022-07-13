@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Tasmania Resort MERN Project Back-End server side",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "server.js",
+    "server": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +20,10 @@
   },
   "homepage": "https://github.com/T3A2Group/server#readme",
   "dependencies": {
+    "dotenv": "^16.0.1",
     "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }
