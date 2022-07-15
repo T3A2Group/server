@@ -1,8 +1,18 @@
 import express from "express";
-import products from "./data/products.js";
 import dotenv from "dotenv";
+import connectDB from "./config/db.js"; //import db connection config file
+//routes import:
+import villaRoutes from "./routes/villaRoutes.js";
+import foodRoutes from "./routes/foodRoutes.js";
+import specialtyRoutes from "./routes/specialtyRoutes.js";
+import travelRoutes from "./routes/travelRoutes.js";
+//error catch middleware import
+import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
+//config env file
 dotenv.config();
+//connect to DB
+connectDB();
 
 const app = express();
 
@@ -11,15 +21,15 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-//http://localhost:4000/api/products
-app.get("/api/products", (req, res) => {
-  res.json(products);
-});
-//http://localhost:4000/api/products/:id
-app.get("/api/products/:id", (req, res) => {
-  const product = products.find((p) => p._id === req.params.id);
-  res.json(product);
-});
+//different product routes
+app.use("/api/villas", villaRoutes);
+app.use("/api/food", foodRoutes);
+app.use("/api/specialties", specialtyRoutes);
+app.use("/api/travel", travelRoutes);
+
+//after above routes, use error handler middleware
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
 app.listen(
