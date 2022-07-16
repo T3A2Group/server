@@ -10,6 +10,8 @@ router.get(
   "/",
   asyncHandler(async (req, res) => {
     const food = await Food.find({}); //=> {} empty object will give us all food
+    // res.status(401);
+    // throw new Error("Not Authorized");
     res.json(food);
   })
 );
