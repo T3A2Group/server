@@ -16,7 +16,7 @@ const travel = [
       },
     ],
     price: 210.0,
-    countInStock: 20,
+    countInStock: 8,
     rating: 4.5,
     numReviews: 10,
   },
