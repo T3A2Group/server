@@ -22,9 +22,9 @@ app.get("/", (req, res) => {
 });
 
 //different product routes
-app.use("/api/villas", villaRoutes);
+app.use("/api/villa", villaRoutes);
 app.use("/api/food", foodRoutes);
-app.use("/api/specialties", specialtyRoutes);
+app.use("/api/specialty", specialtyRoutes);
 app.use("/api/travel", travelRoutes);
 
 //after above routes, use error handler middleware

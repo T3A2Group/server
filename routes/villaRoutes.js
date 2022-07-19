@@ -4,7 +4,7 @@ import asyncHandler from "express-async-handler"; //=> middleware for error hand
 const router = express.Router();
 
 //@desc   Fetch all villas
-//@route  Get /api/villas
+//@route  Get /api/villa
 //@assess All Guest
 router.get(
   "/",
@@ -15,7 +15,7 @@ router.get(
 );
 
 //@desc   Fetch single villa
-//@route  Get /api/villas/:id
+//@route  Get /api/villa/:id
 //@assess All Guest
 router.get(
   "/:id",
