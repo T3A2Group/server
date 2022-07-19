@@ -9,18 +9,15 @@ const orderItemSchema = mongoose.Schema(
     price: { type: Number, required: true },
     villa: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "Villa",
     },
-    food: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Food" },
+    food: { type: mongoose.Schema.Types.ObjectId, ref: "Food" },
     specialty: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "Specialty",
     },
     travelPlan: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "Travel",
     },
   },
