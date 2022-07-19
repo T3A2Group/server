@@ -6,6 +6,7 @@ import villaRoutes from "./routes/villaRoutes.js";
 import foodRoutes from "./routes/foodRoutes.js";
 import specialtyRoutes from "./routes/specialtyRoutes.js";
 import travelRoutes from "./routes/travelRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 //error catch middleware import
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
@@ -15,6 +16,9 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+//middleware for parse json
+app.use(express.json());
 
 //http://localhost:4000
 app.get("/", (req, res) => {
@@ -26,6 +30,9 @@ app.use("/api/villa", villaRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/specialty", specialtyRoutes);
 app.use("/api/travel", travelRoutes);
+
+//auth users routes
+app.use("/api/users", userRoutes);
 
 //after above routes, use error handler middleware
 app.use(notFound);
