@@ -7,6 +7,7 @@ import foodRoutes from "./routes/foodRoutes.js";
 import specialtyRoutes from "./routes/specialtyRoutes.js";
 import travelRoutes from "./routes/travelRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 //error catch middleware import
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
@@ -33,6 +34,9 @@ app.use("/api/travel", travelRoutes);
 
 //auth users routes
 app.use("/api/users", userRoutes);
+
+//order routes
+app.use("/api/orders", orderRoutes);
 
 //after above routes, use error handler middleware
 app.use(notFound);
