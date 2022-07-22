@@ -7,19 +7,19 @@ const orderItemSchema = mongoose.Schema(
     qty: { type: Number, required: true },
     image: { type: String, required: true },
     price: { type: Number, required: true },
-    villa: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Villa",
-    },
-    food: { type: mongoose.Schema.Types.ObjectId, ref: "Food" },
-    specialty: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Specialty",
-    },
-    travelPlan: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Travel",
-    },
+    // villa: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Villa",
+    // },
+    // food: { type: mongoose.Schema.Types.ObjectId, ref: "Food" },
+    // specialty: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Specialty",
+    // },
+    // travelPlan: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Travel",
+    // },
   },
   { timestamps: true }
 );
