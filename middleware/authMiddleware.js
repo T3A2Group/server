@@ -29,4 +29,14 @@ const protectUser = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { protectUser };
+//only for admin can find all user list
+const admin = (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    res.status(401);
+    throw new Error("Not authorized as an admin");
+  }
+};
+
+export { protectUser, admin };
