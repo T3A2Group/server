@@ -21,6 +21,10 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    profilePicture: {
+      type: String,
+      default: "https://i.ibb.co/r3xBmkW/avatar.png",
+    },
   },
   { timestamps: true } //mongoose will create createdAt and updatedAt two properties of type Date to the schema
 );
