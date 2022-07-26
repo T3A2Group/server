@@ -3,14 +3,20 @@ import {
   getVillaList,
   getVillaById,
   deleteVilla,
+  createVilla,
+  updateVilla,
 } from "../controllers/villaControllers.js";
 import { protectUser, admin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-//@desc   Fetch all villa list
-router.route("/").get(getVillaList);
-//@desc   Fetch single villa (CRUD)
-router.route("/:id").get(getVillaById).delete(protectUser, admin, deleteVilla);
+//@desc   Fetch all villa list and create new villa
+router.route("/").get(getVillaList).post(protectUser, admin, createVilla);
+//@desc   Fetch single villa (read,delete and update)
+router
+  .route("/:id")
+  .get(getVillaById)
+  .delete(protectUser, admin, deleteVilla)
+  .put(protectUser, admin, updateVilla);
 
 export default router;

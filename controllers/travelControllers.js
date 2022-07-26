@@ -40,4 +40,74 @@ const deleteTravel = asyncHandler(async (req, res) => {
   }
 });
 
-export { getTravelList, getTravelById, deleteTravel };
+//@desc   Create single Travel plan
+//@route  POST /api/travel
+//@assess Private Admin
+const createTravel = asyncHandler(async (req, res) => {
+  const travel = new Travel({
+    name: "Sample name",
+    price: 0,
+    user: req.user._id,
+    image: "/images/sample.jpg",
+    category: "sample travel",
+    countInStock: 0,
+    numReviews: 0,
+    description: "Sample Description",
+    type: "Sample travel 2 days type",
+    duration: "TEST days",
+    attractions: [
+      {
+        name: "Day 1 TEST Tour",
+        briefInfo: "this is test...",
+      },
+      {
+        name: "Day 2 Sample Tour",
+        briefInfo: "this is test...",
+      },
+    ],
+  });
+
+  const createdTravel = await travel.save();
+  res.status(201).json(createdTravel);
+});
+
+//@desc   Update single travel plan
+//@route  PUT /api/travel/:id
+//@assess Private Admin
+const updateTravel = asyncHandler(async (req, res) => {
+  const {
+    name,
+    price,
+    image,
+    countInStock,
+    description,
+    type,
+    duration,
+    attractions,
+  } = req.body;
+
+  const travel = await Travel.findById(req.params.id);
+  if (travel) {
+    travel.name = name;
+    travel.price = price;
+    travel.image = image;
+    travel.countInStock = countInStock;
+    travel.description = description;
+    travel.duration = duration;
+    travel.attractions = attractions;
+    travel.type = type;
+    const updateTravel = await travel.save();
+    res.json(updateTravel);
+  } else {
+    res.status(404);
+    throw new Error("Travel Plan not found");
+  }
+});
+
+export {
+  getTravelList,
+  getTravelById,
+  deleteTravel,
+  createTravel,
+  updateTravel,
+};
