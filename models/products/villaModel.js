@@ -39,7 +39,7 @@ const villaSchema = mongoose.Schema(
       required: true,
     },
     roomNums: {
-      //=> one queen bed room, two single room etc
+      //=> one queen bed room (1), two single room(2) etc
       type: Number,
       required: true,
     },
