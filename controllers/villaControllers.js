@@ -25,4 +25,19 @@ const getVillaById = asyncHandler(async (req, res) => {
   }
 });
 
-export { getVillaList, getVillaById };
+//@desc   Delete single villa
+//@route  DELETE /api/villa/:id
+//@assess Private Admin
+const deleteVilla = asyncHandler(async (req, res) => {
+  const villa = await Villa.findById(req.params.id);
+  //if villa exist, then delete villa by id, else, status 404 and not found message send
+  if (villa) {
+    await villa.remove();
+    res.json({ message: `${villa.name} removed` });
+  } else {
+    res.status(404);
+    throw new Error(`Villa not found!`);
+  }
+});
+
+export { getVillaList, getVillaById, deleteVilla };

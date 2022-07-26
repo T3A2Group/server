@@ -25,4 +25,19 @@ const getTravelById = asyncHandler(async (req, res) => {
   }
 });
 
-export { getTravelList, getTravelById };
+//@desc   Delete single travel package
+//@route  DELETE /api/travel/:id
+//@assess Private Admin
+const deleteTravel = asyncHandler(async (req, res) => {
+  const travel = await Travel.findById(req.params.id);
+  //if travel package exist, then delete travel by id, else, status 404 and not found message send
+  if (travel) {
+    await travel.remove();
+    res.json({ message: `${travel.name} removed` });
+  } else {
+    res.status(404);
+    throw new Error(`Travel Plan not found!`);
+  }
+});
+
+export { getTravelList, getTravelById, deleteTravel };

@@ -27,4 +27,19 @@ const getFoodById = asyncHandler(async (req, res) => {
   }
 });
 
-export { getFoodList, getFoodById };
+//@desc   Delete single food
+//@route  DELETE /api/food/:id
+//@assess Private Admin
+const deleteFood = asyncHandler(async (req, res) => {
+  const food = await Food.findById(req.params.id);
+  //if food exist, then delete food by id, else, status 404 and not found message send
+  if (food) {
+    await food.remove();
+    res.json({ message: `${food.name} removed` });
+  } else {
+    res.status(404);
+    throw new Error(`Food not found!`);
+  }
+});
+
+export { getFoodList, getFoodById, deleteFood };

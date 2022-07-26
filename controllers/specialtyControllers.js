@@ -25,4 +25,19 @@ const getSpecialtyById = asyncHandler(async (req, res) => {
   }
 });
 
-export { getSpecialtyList, getSpecialtyById };
+//@desc   Delete single specialty
+//@route  DELETE /api/specialty/:id
+//@assess Private Admin
+const deleteSpecialty = asyncHandler(async (req, res) => {
+  const specialty = await Specialty.findById(req.params.id);
+  //if specialty exist, then delete specialty by id, else, status 404 and not found message send
+  if (specialty) {
+    await specialty.remove();
+    res.json({ message: `${specialty.name} removed` });
+  } else {
+    res.status(404);
+    throw new Error(`Specialty not found!`);
+  }
+});
+
+export { getSpecialtyList, getSpecialtyById, deleteSpecialty };
