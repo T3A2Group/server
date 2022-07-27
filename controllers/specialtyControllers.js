@@ -49,7 +49,7 @@ const createSpecialty = asyncHandler(async (req, res) => {
     price: 0,
     user: req.user._id,
     image: "/images/sample.jpg",
-    category: "sample gift",
+    category: "specialty",
     countInStock: 0,
     numReviews: 0,
     description: "Sample Gift Description",

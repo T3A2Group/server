@@ -49,7 +49,7 @@ const createTravel = asyncHandler(async (req, res) => {
     price: 0,
     user: req.user._id,
     image: "/images/sample.jpg",
-    category: "sample travel",
+    category: "travel",
     countInStock: 0,
     numReviews: 0,
     description: "Sample Description",

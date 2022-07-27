@@ -51,7 +51,7 @@ const createFood = asyncHandler(async (req, res) => {
     price: 0,
     user: req.user._id,
     image: "/images/sample.jpg",
-    category: "sample food",
+    category: "food",
     countInStock: 10,
     numReviews: 0,
     description: "Sample Food Info",
