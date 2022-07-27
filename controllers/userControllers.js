@@ -2,6 +2,16 @@ import User from "../models/userModel.js";
 import asyncHandler from "express-async-handler"; //=> middleware for error handling, avoid use trycatch for each route
 import generateToken from "../utils/generateToken.js";
 
+
+const fs = require('fs')
+const util = require('util')
+const unlinkFile = util.promisify(fs.unlink)
+
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
+
+const { uploadFile, getFileStream } = require('./s3')
+
 //@desc   Auth user & get token
 //@route  Post /api/users/login
 //@assess All Guest
