@@ -8,8 +8,13 @@ import specialtyRoutes from "./routes/specialtyRoutes.js";
 import travelRoutes from "./routes/travelRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 //error catch middleware import
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import path from "path";
+//for cloud image store
+import pkg from "cloudinary";
+const cloudinary = pkg;
 
 //config env file
 dotenv.config();
@@ -26,11 +31,23 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
+//cloudinary config setup(for image could store)
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
 //different product routes
 app.use("/api/villa", villaRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/specialty", specialtyRoutes);
 app.use("/api/travel", travelRoutes);
+
+// upload image routes
+app.use("/api/upload", uploadRoutes);
+const __dirname = path.resolve();
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 //auth users routes
 app.use("/api/users", userRoutes);

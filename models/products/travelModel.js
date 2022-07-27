@@ -10,14 +10,14 @@ const reviewSchema = mongoose.Schema(
   { timestamps: true }
 ); //=> this is small review Schema for villa product
 
-//=> this is each attraction schema
-const attractionSchema = mongoose.Schema(
-  {
-    name: { type: String, required: true },
-    briefInfo: { type: String, required: true },
-  },
-  { timestamps: true }
-);
+// //=> this is each attraction schema
+// const attractionSchema = mongoose.Schema(
+//   {
+//     name: { type: String, required: true },
+//     briefInfo: { type: String, required: true },
+//   },
+//   { timestamps: true }
+// );
 
 const travelSchema = mongoose.Schema(
   {
@@ -48,7 +48,10 @@ const travelSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    attractions: [attractionSchema], //=> eg: cradle mountain, wineglass bay etc...
+    attractions: {
+      name: { type: String, required: true },
+      briefInfo: { type: String, required: true },
+    }, //=> eg: cradle mountain, wineglass bay etc...
     description: {
       type: String,
       required: true,

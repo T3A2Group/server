@@ -49,22 +49,16 @@ const createTravel = asyncHandler(async (req, res) => {
     price: 0,
     user: req.user._id,
     image: "/images/sample.jpg",
-    category: "sample travel",
+    category: "travel",
     countInStock: 0,
     numReviews: 0,
     description: "Sample Description",
     type: "Sample travel 2 days type",
     duration: "TEST days",
-    attractions: [
-      {
-        name: "Day 1 TEST Tour",
-        briefInfo: "this is test...",
-      },
-      {
-        name: "Day 2 Sample Tour",
-        briefInfo: "this is test...",
-      },
-    ],
+    attractions: {
+      name: "TEST Tour Hot Spots",
+      briefInfo: "this is test...",
+    },
   });
 
   const createdTravel = await travel.save();
