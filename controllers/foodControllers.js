@@ -6,7 +6,16 @@ import Order from "../models/orderModel.js";
 //@route  Get /api/food
 //@assess All Guest
 const getFoodList = asyncHandler(async (req, res) => {
-  const food = await Food.find({}); //=> {} empty object will give us all food
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+
+  const food = await Food.find({ ...keyword }); //=> {} empty object will give us all food
   // res.status(401);
   // throw new Error("Not Authorized");
   res.json(food);

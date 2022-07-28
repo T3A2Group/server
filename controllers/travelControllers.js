@@ -6,7 +6,15 @@ import Order from "../models/orderModel.js";
 //@route  Get /api/travel
 //@assess All Guest
 const getTravelList = asyncHandler(async (req, res) => {
-  const travel = await Travel.find({}); //=> {} empty object will give us all Specialties
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+  const travel = await Travel.find({ ...keyword }); //=> {} empty object will give us all Specialties
   res.json(travel);
 });
 

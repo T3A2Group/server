@@ -6,7 +6,18 @@ import Order from "../models/orderModel.js";
 //@route  Get /api/villa
 //@assess All Guest
 const getVillaList = asyncHandler(async (req, res) => {
-  const villas = await Villa.find({}); //=> {} empty object will give us all villas
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+
+  const villas = await Villa.find({ ...keyword });
+  //=> {} empty object will give us all villas
+  //=>{...keyword} allows client do search and pass keyword to backend filter
   res.json(villas);
 });
 
