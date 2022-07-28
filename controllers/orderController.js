@@ -1,4 +1,8 @@
 import Order from "../models/orderModel.js";
+import Food from "../models/products/foodModel.js";
+import Specialty from "../models/products/specialtyModel.js";
+import Travel from "../models/products/travelModel.js";
+import Villa from "../models/products/villaModel.js"
 import asyncHandler from "express-async-handler"; //=> middleware for error handling, avoid use trycatch for each route
 
 //@desc   Create new order
@@ -78,38 +82,29 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 
     // reduce stock number after pay.
     for (const index in order.orderItems) {
-
       const item = order.orderItems[index];
-      // console.log(item)
-      const product = {};
-
       switch(item.category){
         case 'Food':
-          product = await Food.findById(item.product);
+          const updatedFood = await Food.findById(item.product);
+          updatedFood.countInStock -= item.qty;
+          await updatedFood.save();         
           break;
-
         case 'Specialty':
-          product = await Specialty.findById(item.product);
+          const updatedSpecialty = await Specialty.findById(item.product);
+          updatedSpecialty.countInStock -= item.qty;
+          await updatedSpecialty.save();
           break;
-
         case 'Travel':
-          product = await Travel.findById(item.product);
-        break;
-
+          const updatedTravel = await Travel.findById(item.product);
+          updatedTravel.countInStock -= item.qty;
+          await updatedTravel.save();
+          break;
         case 'Villa':
-          product = await Villa.findById(item.product);
+          const updatedVilla = await Villa.findById(item.product);
+          updatedVilla.countInStock -= item.qty;
+          await updatedVilla.save();
           break;
         }
-
-        console.log(product.countInStock)
-        console.log(item.qty)
-
-        product.countInStock -= item.qty;
-
-        console.log('=')
-        console.log(product.countInStock)
-
-        await product.save();
       }
 
      const updatedOrder = await order.save();
