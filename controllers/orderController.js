@@ -14,11 +14,18 @@ const addOrderItems = asyncHandler(async (req, res) => {
     shippingPrice,
     totalPrice,
   } = req.body;
+
   if (orderItems && orderItems.length === 0) {
     res.status(400);
     throw new Error("No order items");
     return;
   } else {
+
+    orderItems.map((p) => {
+      p.category = p.category.charAt(0).toUpperCase() + p.category.slice(1);
+      return p;
+    })
+
     const order = new Order({
       orderItems,
       user: req.user._id,
@@ -68,8 +75,45 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
       update_time: req.body.update_time,
       email_address: req.body.payer.email_address,
     };
-    const updatedOrder = await order.save();
-    res.json(updatedOrder);
+
+    // reduce stock number after pay.
+    for (const index in order.orderItems) {
+
+      const item = order.orderItems[index];
+      // console.log(item)
+      const product = {};
+
+      switch(item.category){
+        case 'Food':
+          product = await Food.findById(item.product);
+          break;
+
+        case 'Specialty':
+          product = await Specialty.findById(item.product);
+          break;
+
+        case 'Travel':
+          product = await Travel.findById(item.product);
+        break;
+
+        case 'Villa':
+          product = await Villa.findById(item.product);
+          break;
+        }
+
+        console.log(product.countInStock)
+        console.log(item.qty)
+
+        product.countInStock -= item.qty;
+
+        console.log('=')
+        console.log(product.countInStock)
+
+        await product.save();
+      }
+
+     const updatedOrder = await order.save();
+     res.json(updatedOrder);
   } else {
     res.status(404);
     throw new Error("Order Not Found");
@@ -95,6 +139,7 @@ const getAllOrders = asyncHandler(async (req, res) => {
 //@desc   update order to dispatch
 //@route  Put /api/orders/:id/dispatch
 //@assess Private Admin
+
 const updateOrderToDispatch = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
 

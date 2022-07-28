@@ -7,22 +7,24 @@ const orderItemSchema = mongoose.Schema(
     qty: { type: Number, required: true },
     image: { type: String, required: true },
     price: { type: Number, required: true },
-    // villa: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Villa",
-    // },
-    // food: { type: mongoose.Schema.Types.ObjectId, ref: "Food" },
-    // specialty: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Specialty",
-    // },
-    // travelPlan: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Travel",
-    // },
+
+    // ObjectId
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      refPath: 'category'
+    },
+    
+    // ref category
+    category: {
+      type: String,
+      required: true,
+      enum: ["Food", "Specialty","Travel", "Villa" ]
+    },
   },
   { timestamps: true }
 );
+
 
 const orderSchema = mongoose.Schema(
   {
@@ -31,7 +33,9 @@ const orderSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
+
     orderItems: [orderItemSchema], //order items array
+
     shippingAddress: {
       address: { type: String, defalut: "Australia" },
       city: { type: String, defalut: "Australia city" },
