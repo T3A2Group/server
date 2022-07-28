@@ -1,5 +1,6 @@
 import Specialty from "../models/products/specialtyModel.js";
 import asyncHandler from "express-async-handler"; //=> middleware for error handling, avoid use trycatch for each route
+import Order from "../models/orderModel.js";
 
 //@desc   Fetch all specialty list
 //@route  Get /api/specialty
@@ -89,7 +90,24 @@ const createSpecialtyReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
   const specialty = await Specialty.findById(req.params.id);
 
+  // Bring in user orders to check if they ordered the product
+  const orders = await Order.find({ user: req.user._id });
+
+  // Array of villa name that the user ordered
+  const ordersItems = [].concat.apply(
+    [],
+    orders.map((order) => order.orderItems.map((item) => item.name.toString()))
+  );
+
   if (specialty) {
+    // Check if the name of the specialty matches any of the users ordered specialties
+    const hasBought = ordersItems.includes(specialty.name.toString());
+
+    if (!hasBought) {
+      res.status(400);
+      throw new Error("You can only leave comments for products you bought");
+    }
+
     //=>this is to check if current client already review the specialty and give us a boolean
     const alreadyReviewed = specialty.reviews.find(
       (review) => review.user.toString() === req.user._id.toString()

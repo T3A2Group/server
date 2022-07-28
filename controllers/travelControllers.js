@@ -1,5 +1,6 @@
 import Travel from "../models/products/travelModel.js";
 import asyncHandler from "express-async-handler"; //=> middleware for error handling, avoid use trycatch for each route
+import Order from "../models/orderModel.js";
 
 //@desc   Fetch all Travel Plans
 //@route  Get /api/travel
@@ -105,7 +106,23 @@ const createTravelReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
   const travel = await Travel.findById(req.params.id);
 
+  // Bring in user orders to check if they ordered the product
+  const orders = await Order.find({ user: req.user._id });
+
+  // Array of travel plan name that the user ordered
+  const ordersItems = [].concat.apply(
+    [],
+    orders.map((order) => order.orderItems.map((item) => item.name.toString()))
+  );
+
   if (travel) {
+    // Check if the name of the travel matches any of the users ordered travel plans
+    const hasBought = ordersItems.includes(travel.name.toString());
+
+    if (!hasBought) {
+      res.status(400);
+      throw new Error("You can only leave comments for products you bought");
+    }
     //=>this is to check if current client already review the travel and give us a boolean
     const alreadyReviewed = travel.reviews.find(
       (review) => review.user.toString() === req.user._id.toString()

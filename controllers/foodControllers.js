@@ -1,5 +1,6 @@
 import Food from "../models/products/foodModel.js";
 import asyncHandler from "express-async-handler"; //=> middleware for error handling, avoid use trycatch for each route
+import Order from "../models/orderModel.js";
 
 //@desc   Fetch all food
 //@route  Get /api/food
@@ -91,7 +92,23 @@ const createFoodReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
   const food = await Food.findById(req.params.id);
 
+  // Bring in user orders to check if they ordered the product
+  const orders = await Order.find({ user: req.user._id });
+
+  // Array of food name that the user ordered
+  const ordersItems = [].concat.apply(
+    [],
+    orders.map((order) => order.orderItems.map((item) => item.name.toString()))
+  );
+
   if (food) {
+    // Check if the name of the food matches any of the users ordered food
+    const hasBought = ordersItems.includes(food.name.toString());
+
+    if (!hasBought) {
+      res.status(400);
+      throw new Error("You can only leave comments for products you bought");
+    }
     //=>this is to check if current client already review the food and give us a boolean
     const alreadyReviewed = food.reviews.find(
       (review) => review.user.toString() === req.user._id.toString()
