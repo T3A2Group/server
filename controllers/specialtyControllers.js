@@ -82,10 +82,53 @@ const updateSpecialty = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc   Create new specialty product review
+//@route  POST /api/specialty/:id/reviews
+//@assess Private Client
+const createSpecialtyReview = asyncHandler(async (req, res) => {
+  const { rating, comment } = req.body;
+  const specialty = await Specialty.findById(req.params.id);
+
+  if (specialty) {
+    //=>this is to check if current client already review the specialty and give us a boolean
+    const alreadyReviewed = specialty.reviews.find(
+      (review) => review.user.toString() === req.user._id.toString()
+    );
+    if (alreadyReviewed) {
+      res.status(400);
+      throw new Error("You have already commented...");
+    }
+
+    //otherwise, if current client don't review, then they can leave the comment.
+    const newReview = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    };
+    specialty.reviews.push(newReview); //=> add the new review to reviews array
+
+    //after new review added, we need to recalculate the average rating
+    specialty.numReviews = specialty.reviews.length; //total reviews
+    // average rating = total rating / total reviews num
+    specialty.rating =
+      specialty.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      specialty.reviews.length;
+
+    //finally save the specialty
+    await specialty.save();
+    res.status(201).json({ message: "Thanks for your review!" });
+  } else {
+    res.status(404);
+    throw new Error("Specialty not found");
+  }
+});
+
 export {
   getSpecialtyList,
   getSpecialtyById,
   deleteSpecialty,
   createSpecialty,
   updateSpecialty,
+  createSpecialtyReview,
 };

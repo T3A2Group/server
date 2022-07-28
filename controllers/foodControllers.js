@@ -84,4 +84,53 @@ const updateFood = asyncHandler(async (req, res) => {
   }
 });
 
-export { getFoodList, getFoodById, deleteFood, createFood, updateFood };
+//@desc   Create new food product review
+//@route  POST /api/food/:id/reviews
+//@assess Private Client
+const createFoodReview = asyncHandler(async (req, res) => {
+  const { rating, comment } = req.body;
+  const food = await Food.findById(req.params.id);
+
+  if (food) {
+    //=>this is to check if current client already review the food and give us a boolean
+    const alreadyReviewed = food.reviews.find(
+      (review) => review.user.toString() === req.user._id.toString()
+    );
+    if (alreadyReviewed) {
+      res.status(400);
+      throw new Error("You have already commented...");
+    }
+
+    //otherwise, if current client don't review, then they can leave the comment.
+    const newReview = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    };
+    food.reviews.push(newReview); //=> add the new review to reviews array
+
+    //after new review added, we need to recalculate the average rating
+    food.numReviews = food.reviews.length; //total reviews
+    // average rating = total rating / total reviews num
+    food.rating =
+      food.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      food.reviews.length;
+
+    //finally save the food
+    await food.save();
+    res.status(201).json({ message: "Thanks for your review!" });
+  } else {
+    res.status(404);
+    throw new Error("Food not found");
+  }
+});
+
+export {
+  getFoodList,
+  getFoodById,
+  deleteFood,
+  createFood,
+  updateFood,
+  createFoodReview,
+};

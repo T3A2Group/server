@@ -5,6 +5,7 @@ import {
   deleteVilla,
   createVilla,
   updateVilla,
+  createVillaReview,
 } from "../controllers/villaControllers.js";
 import { protectUser, admin } from "../middleware/authMiddleware.js";
 
@@ -18,5 +19,6 @@ router
   .get(getVillaById)
   .delete(protectUser, admin, deleteVilla)
   .put(protectUser, admin, updateVilla);
-
+//@desc   Post single villa review
+router.route("/:id/reviews").post(protectUser, createVillaReview);
 export default router;

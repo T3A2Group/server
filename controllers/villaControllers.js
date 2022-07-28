@@ -95,4 +95,53 @@ const updateVilla = asyncHandler(async (req, res) => {
   }
 });
 
-export { getVillaList, getVillaById, deleteVilla, createVilla, updateVilla };
+//@desc   Create new villa product review
+//@route  POST /api/villa/:id/reviews
+//@assess Private Client
+const createVillaReview = asyncHandler(async (req, res) => {
+  const { rating, comment } = req.body;
+  const villa = await Villa.findById(req.params.id);
+
+  if (villa) {
+    //=>this is to check if current client already review the villa and give us a boolean
+    const alreadyReviewed = villa.reviews.find(
+      (review) => review.user.toString() === req.user._id.toString()
+    );
+    if (alreadyReviewed) {
+      res.status(400);
+      throw new Error("You have already commented...");
+    }
+
+    //otherwise, if current client don't review, then they can leave the comment.
+    const newReview = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    };
+    villa.reviews.push(newReview); //=> add the new review to reviews array
+
+    //after new review added, we need to recalculate the average rating
+    villa.numReviews = villa.reviews.length; //total reviews
+    // average rating = total rating / total reviews num
+    villa.rating =
+      villa.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      villa.reviews.length;
+
+    //finally save the villa
+    await villa.save();
+    res.status(201).json({ message: "Thanks for your review!" });
+  } else {
+    res.status(404);
+    throw new Error("Villa not found");
+  }
+});
+
+export {
+  getVillaList,
+  getVillaById,
+  deleteVilla,
+  createVilla,
+  updateVilla,
+  createVillaReview,
+};
