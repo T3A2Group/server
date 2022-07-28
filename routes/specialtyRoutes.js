@@ -5,6 +5,7 @@ import {
   deleteSpecialty,
   createSpecialty,
   updateSpecialty,
+  createSpecialtyReview,
 } from "../controllers/specialtyControllers.js";
 import { protectUser, admin } from "../middleware/authMiddleware.js";
 const router = express.Router();
@@ -20,4 +21,7 @@ router
   .get(getSpecialtyById)
   .delete(protectUser, admin, deleteSpecialty)
   .put(protectUser, admin, updateSpecialty);
+//@desc   Post single specialty review
+router.route("/:id/reviews").post(protectUser, createSpecialtyReview);
+
 export default router;
