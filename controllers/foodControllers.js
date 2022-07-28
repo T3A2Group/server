@@ -1,11 +1,21 @@
 import Food from "../models/products/foodModel.js";
 import asyncHandler from "express-async-handler"; //=> middleware for error handling, avoid use trycatch for each route
+import Order from "../models/orderModel.js";
 
 //@desc   Fetch all food
 //@route  Get /api/food
 //@assess All Guest
 const getFoodList = asyncHandler(async (req, res) => {
-  const food = await Food.find({}); //=> {} empty object will give us all food
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+
+  const food = await Food.find({ ...keyword }); //=> {} empty object will give us all food
   // res.status(401);
   // throw new Error("Not Authorized");
   res.json(food);
@@ -84,4 +94,69 @@ const updateFood = asyncHandler(async (req, res) => {
   }
 });
 
-export { getFoodList, getFoodById, deleteFood, createFood, updateFood };
+//@desc   Create new food product review
+//@route  POST /api/food/:id/reviews
+//@assess Private Client
+const createFoodReview = asyncHandler(async (req, res) => {
+  const { rating, comment } = req.body;
+  const food = await Food.findById(req.params.id);
+
+  // Bring in user orders to check if they ordered the product
+  const orders = await Order.find({ user: req.user._id });
+
+  // Array of food name that the user ordered
+  const ordersItems = [].concat.apply(
+    [],
+    orders.map((order) => order.orderItems.map((item) => item.name.toString()))
+  );
+
+  if (food) {
+    // Check if the name of the food matches any of the users ordered food
+    const hasBought = ordersItems.includes(food.name.toString());
+
+    if (!hasBought) {
+      res.status(400);
+      throw new Error("You can only leave comments for products you bought");
+    }
+    //=>this is to check if current client already review the food and give us a boolean
+    const alreadyReviewed = food.reviews.find(
+      (review) => review.user.toString() === req.user._id.toString()
+    );
+    if (alreadyReviewed) {
+      res.status(400);
+      throw new Error("You have already commented...");
+    }
+
+    //otherwise, if current client don't review, then they can leave the comment.
+    const newReview = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    };
+    food.reviews.push(newReview); //=> add the new review to reviews array
+
+    //after new review added, we need to recalculate the average rating
+    food.numReviews = food.reviews.length; //total reviews
+    // average rating = total rating / total reviews num
+    food.rating =
+      food.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      food.reviews.length;
+
+    //finally save the food
+    await food.save();
+    res.status(201).json({ message: "Thanks for your review!" });
+  } else {
+    res.status(404);
+    throw new Error("Food not found");
+  }
+});
+
+export {
+  getFoodList,
+  getFoodById,
+  deleteFood,
+  createFood,
+  updateFood,
+  createFoodReview,
+};

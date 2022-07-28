@@ -5,6 +5,7 @@ import {
   deleteFood,
   createFood,
   updateFood,
+  createFoodReview,
 } from "../controllers/foodControllers.js";
 import { protectUser, admin } from "../middleware/authMiddleware.js";
 const router = express.Router();
@@ -18,5 +19,8 @@ router
   .get(getFoodById)
   .delete(protectUser, admin, deleteFood)
   .put(protectUser, admin, updateFood);
+
+//@desc   Post single food review
+router.route("/:id/reviews").post(protectUser, createFoodReview);
 
 export default router;

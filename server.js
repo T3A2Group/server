@@ -15,6 +15,8 @@ import path from "path";
 //for cloud image store
 import pkg from "cloudinary";
 const cloudinary = pkg;
+//import HTTP request logger middleware for node.js
+import morgan from "morgan";
 
 //config env file
 dotenv.config();
@@ -22,6 +24,12 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+//only use morgan middleware for development env
+//eg: if I login account, then I can see the server logger: POST /api/users/login 200(HTTP code)
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 //middleware for parse json
 app.use(express.json());

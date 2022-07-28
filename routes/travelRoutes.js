@@ -5,6 +5,7 @@ import {
   deleteTravel,
   createTravel,
   updateTravel,
+  createTravelReview,
 } from "../controllers/travelControllers.js";
 import { protectUser, admin } from "../middleware/authMiddleware.js";
 const router = express.Router();
@@ -18,5 +19,8 @@ router
   .get(getTravelById)
   .delete(protectUser, admin, deleteTravel)
   .put(protectUser, admin, updateTravel);
+
+//@desc   Post single travel review
+router.route("/:id/reviews").post(protectUser, createTravelReview);
 
 export default router;
