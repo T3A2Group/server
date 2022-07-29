@@ -1,6 +1,9 @@
 import Order from "../models/orderModel.js";
 import asyncHandler from "express-async-handler"; //=> middleware for error handling, avoid use trycatch for each route
-
+import Food from "../models/products/foodModel.js";
+import Specialty from "../models/products/specialtyModel.js";
+import Travel from "../models/products/travelModel.js";
+import Villa from "../models/products/villaModel.js";
 //@desc   Create new order
 //@route  POST /api/orders
 //@assess Private
@@ -19,6 +22,11 @@ const addOrderItems = asyncHandler(async (req, res) => {
     throw new Error("No order items");
     return;
   } else {
+    orderItems.map((p) => {
+      p.category = p.category.charAt(0).toUpperCase() + p.category.slice(1);
+      return p;
+    });
+
     const order = new Order({
       orderItems,
       user: req.user._id,
@@ -68,6 +76,37 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
       update_time: req.body.update_time,
       email_address: req.body.payer.email_address,
     };
+    // reduce stock number after pay.
+    for (const index in order.orderItems) {
+      const item = order.orderItems[index];
+      // console.log(item)
+
+      switch (item.category) {
+        case "Food":
+          const updatedFood = await Food.findById(item.product);
+          updatedFood.countInStock -= item.qty;
+          await updatedFood.save();
+          break;
+
+        case "Specialty":
+          const updatedSpecialty = await Specialty.findById(item.product);
+          updatedSpecialty.countInStock -= item.qty;
+          await updatedSpecialty.save();
+          break;
+        case "Travel":
+          const updatedTravel = await Travel.findById(item.product);
+          updatedTravel.countInStock -= item.qty;
+          await updatedTravel.save();
+          break;
+
+        case "Villa":
+          const updatedVilla = await Villa.findById(item.product);
+          updatedVilla.countInStock -= item.qty;
+          await updatedVilla.save();
+          break;
+      }
+    }
+
     const updatedOrder = await order.save();
     res.json(updatedOrder);
   } else {

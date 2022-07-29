@@ -7,6 +7,18 @@ const orderItemSchema = mongoose.Schema(
     qty: { type: Number, required: true },
     image: { type: String, required: true },
     price: { type: Number, required: true },
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      refPath: "category",
+    },
+
+    // ref category
+    category: {
+      type: String,
+      required: true,
+      enum: ["Food", "Specialty", "Travel", "Villa"],
+    },
     // villa: {
     //   type: mongoose.Schema.Types.ObjectId,
     //   ref: "Villa",
