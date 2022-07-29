@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js"; //import db connection config file
+import cors from 'cors';
 //routes import:
 import villaRoutes from "./routes/villaRoutes.js";
 import foodRoutes from "./routes/foodRoutes.js";
@@ -33,6 +34,7 @@ if (process.env.NODE_ENV === "development") {
 
 //middleware for parse json
 app.use(express.json());
+app.use(cors())
 
 //http://localhost:4000
 app.get("/", (req, res) => {
