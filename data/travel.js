@@ -8,13 +8,12 @@ const travel = [
     category: "travel",
     type: "island",
     duration: "one day tour",
-    attractions: [
-      {
-        name: "bruny island",
-        briefInfo:
-          "We start from our farm morning 9:00am,then we go ahead to bruny island...",
-      },
-    ],
+    attractions: {
+      name: "bruny island",
+      briefInfo:
+        "We start from our farm morning 9:00am,then we go ahead to bruny island...",
+    },
+
     price: 210.0,
     countInStock: 8,
     rating: 4.5,
@@ -29,17 +28,10 @@ const travel = [
     category: "travel",
     type: "hiking",
     duration: "two days tour",
-    attractions: [
-      {
-        name: "Day 1 fram tour",
-        briefInfo: "Today,we are going to join the farm tour....",
-      },
-      {
-        name: "Day 2 cradle mountain tour",
-        briefInfo:
-          "We start from our farm morning 9:00am,then we go ahead to cradle mountain...",
-      },
-    ],
+    attractions: {
+      name: "Day 1 fram tour",
+      briefInfo: "Today,we are going to join the farm tour....",
+    },
     price: 420.0,
     countInStock: 10,
     rating: 4.5,
