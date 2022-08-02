@@ -1,0 +1,3 @@
+Add to git repo， for dev env image upload from frontend only.
+The web application images will be stored in cloud
+So, even heroku will clear images in our backend, the frontend image won't be impacted. 
