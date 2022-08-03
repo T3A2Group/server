@@ -188,24 +188,23 @@ At the start of the development phase, we had a high level meeting to discuss ho
 
 We revisited the user stories in detail and decided to split the project into 4 sprints of 5 days each.
 
-- Sprint 1: Create MVP(minimum viable product).
+- Sprint 1: Create MVP (minimum viable product).
   In this sprint, we built the basic overall structure of the website consisting of all essential functions(all priority 1) and basic UI. We came across a couple of blockers such as how to best set up our product schemas. We called meetings to talk through these issues and were able to resolve these quickly which led to a successful delivery of the MVP by the end of sprint 1.
 
 - Sprint 2: Priority 2 features and functions.
   We tried to implement features that are ranked priority 2 during this sprint. We encountered some blockers that delayed our progress and by the second half of the sprint, we realised that we will need to review the remaining features to be implemented in this sprint as it was unlikely that we would be able to implement them all. Our team first had an internal discussion regarding which features may need to be put into the backlog to be worked on at a later date. Then we met with our client to communicate these delays and reprioritised tasks according to the client's preference. Our client was happy to leave the 'edit profile picture' feature to be implemented at a later date.
 
 - Sprint 3: Refactor code, improve UI, manual, unit and integration tests, deployment
-  With all features and functions
+  This sprint focuses on refining the end product which includes making the code more DRY, making further improvements to the UI, deploying the application and testing the application in development and production environments. No major blockers in this sprint.
 
 - Sprint 4: Complete all documentation
+  In this sprint, we prepare for the delivery of the final product by completing the documentation.
 
-Before the start of each sprint, we had a sprint planning meeting to go over the goals and tasks of the upcoming sprint to ensure everyone in the team is on the same page with what our priorities are.
+Before the start of each sprint, we had a sprint planning meeting to go over the goals and tasks of the upcoming sprint to ensure everyone in the team is on the same page with what our priorities are. Daily stand up meetings were also held to discuss the task that each of us were working on, whether anyone has any blocks and what will be worked on next. At the end of each sprint, review meetings are held where we ran through and demoed the completed features to ensure that everyone understand each other's work content and makes appropriate refactor and update if necessary.
 
-- daily stand up meetings to discuss how we should tackle tasks that are being worked on, any blocks, what will be worked on next
+In terms of task management, we added all tasks that we could think of to the 'to-do' column. When a card is assigned to a team member and is ready to be worked on, it is moved to the 'doing' column with an estimated due date assigned to it. Tasks that cannot be finished within the specified sprint are moved to the 'backlog' column to be worked on at a later date. Once the team member is done with the task, the card is moved to the 'done' column.
 
-- sprint review meetings are held at the end of each sprint, we ran through the completed features with client to get feedback to determine if any adjustments need to be made.
-
-In each of the sprint planning meetings, we reviewed the cards to ensure that they were prioritised and so that each card was of a similar size (where possible) at the time that it is picked up to be worked on. We did this on an informal basis, referring to them in tshirt sizes (S, M, L). As we added features and functions to the board, we progressively broke them down into individual tasks and assigned each task to a specific team member (or in some cases as described below, to multiple team members).
+In each of the sprint planning meetings, we reviewed the cards to ensure that they were prioritised and so that each card was of a similar size (i.e. workload/difficulty level) where possible at the time that it is picked up to be worked on. As we added features and functions to the board, we progressively broke them down into individual tasks and assigned each task to a specific team member (or in some cases as described below, to multiple team members).
 
 From the start we identified that our team was very well rounded in terms of relative levels of skill with regards to the various aspects of this project (e.g. front end, back end, and design) and so we didn't have to consider how to balance the relative strengths and weaknesses of each team member, and in fact we made a conscious decision not to do so. As a result our main goal was to ensure an even exposure to each team member across each of these areas. Whilst our process did facilitate this, being a small team allowed us flexibility in terms of process that we used to allow team members the ability to follow through on a particular feature or logical group of features within a given area where it made sense to do so (e.g. continuing to work on front end styling because it may be easier for the same team member to continue doing work that they are already familiar with) to facilitate greater efficiency.
 
