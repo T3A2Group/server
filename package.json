@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "jest --outputFile='./tests/test-result/test-result.js' --forceExit",
+    "test": "jest",
     "start": "node server.js",
     "server": "nodemon server.js",
     "data:import": "node seeder.js",
