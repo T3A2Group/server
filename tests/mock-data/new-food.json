@@ -1,0 +1,11 @@
+{
+  "name": "Sample Food",
+  "price": "0",
+  "user": "req.user._id",
+  "image": "/images/sample.jpg",
+  "category": "food",
+  "countInStock": "10",
+  "numReviews": "0",
+  "description": "Sample Food Info",
+  "type": "Sample Food type"
+}

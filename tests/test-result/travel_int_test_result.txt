@@ -1,0 +1,26 @@
+ PASS  tests/travelController.int.test.js
+
+  Test getTravelList, check if server could return correct travel list data.
+    ✓ Should get travel list if keyword is empty.(list all travel) (676 ms)
+    ✓ Should get travel list by typein keyword (search function) (163 ms)
+
+  Test createTravel, check if admin could create new travel, and non-admin can not.
+    ✓ Should create a new travel and check each element is correct, if user is admin (76 ms)
+    ✓ Should not allows non-admin users to create travel (10 ms)
+
+  Test getTravelById, check if the server could return correct single travel data
+    ✓ Should get travel by id (27 ms)
+
+  Test updateTravel, check if admin could maintained travel data and non-admin can not.
+    ✓ Should correctly update travel if user is admin (79 ms)
+    ✓ Should not allows non-admin users to update travel (4 ms)
+    ✓ Should return 404 if travel not found (29 ms)
+    
+  Test deleteTravel, check if admin could correctly delete travel, and non-admin can not.
+    ✓ Should correctly delete travel if user is admin (91 ms)
+    ✓ Should not allowed non-admin users to delete travel (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       10 passed, 10 total
+Snapshots:   0 total
+Time:        2.069 s

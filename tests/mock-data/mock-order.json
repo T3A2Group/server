@@ -1,0 +1,18 @@
+{
+  "orderItems": [
+    {
+      "name": "tasmania food - seafood 01",
+      "qty": "2",
+      "image": "/images/tasmania-food.jpg",
+      "price": "29.99",
+      "product": "62e1cf22d3b326caf90071e3",
+      "category": "Food"
+    }
+  ],
+  "shippingAddress": {},
+  "paymentMethod": "sample",
+  "itemsPrice": "19.99",
+  "taxPrice": "1.99",
+  "shippingPrice": "10",
+  "totalPrice" : "29.99"
+}

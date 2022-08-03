@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "jest",
+    "test": "jest --outputFile='./tests/test-result/test-result.js' --forceExit",
     "start": "node server.js",
     "server": "nodemon server.js",
     "data:import": "node seeder.js",
@@ -37,6 +37,8 @@
     "@babel/preset-env": "^7.18.9",
     "babel-jest": "^28.1.3",
     "jest": "^28.1.3",
-    "nodemon": "^2.0.19"
+    "node-mocks-http": "^1.11.0",
+    "nodemon": "^2.0.19",
+    "supertest": "^6.2.4"
   }
 }

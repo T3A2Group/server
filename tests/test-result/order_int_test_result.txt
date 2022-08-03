@@ -1,0 +1,39 @@
+ PASS  tests/orderController.int.test.js
+
+  Test createOrder, check if admin could create new order, and non-admin can not.
+    ✓ Should create a new order and check each order is correct when login(have toten) (490 ms)
+    ✓ Should not allows non-login users to create order (9 ms)
+    ✓ Should return 400 when orderitem is empty (28 ms)
+
+  Test getOrderById, check if Login user could get order by id, and non-login user can not.
+    ✓ Should get order by id and check each order is correct when login(have toten) (71 ms)
+    ✓ Should not allows non-login users to get order by id (3 ms)
+    ✓ Should return 404 when order is not found (44 ms)
+    ✓ Should return 500 when order id is not valid (25 ms)
+
+  Test updateOrderToPaid, check if Login user could update order to paid, and non-login user can not.
+    ✓ Should update order to paid (isPaid to be true) when login(have toten) (124 ms)
+    ✓ Should not allows non-login users to update order to paid (5 ms)
+    ✓ Should correctly reduce stock when order is paid (172 ms)
+    ✓ Should return 404 when order is not found (53 ms)
+    ✓ Should return 500 when order id is not valid (27 ms)
+
+  Test updateOrderToDispatch, check if admin user could update order to dispatch, and non-admin user can not.
+    ✓ Should update order to dispatch (isDispatched to be true) when admin(have toten) (81 ms)
+    ✓ Should not allows non-admin users to update order to dispatch (25 ms)
+    ✓ Should return 404 when order is not found (46 ms)
+    ✓ Should return 500 when order id is not valid (24 ms)
+
+  Test getUsersOrders, check if login user could get user's orders, and non-login user can not.
+    ✓ Should get user's orders when login(have toten) (95 ms)
+    ✓ Should not allows non-login users to get user's orders (4 ms)
+    
+  Test getAllOrders, check if admin user could get all orders, and non-admin user can not.
+    ✓ Should get all orders when admin(have toten) (95 ms)
+    ✓ Should not allows non-admin users to get all orders (23 ms)
+    ✓ Should not allows non-login users to get all orders (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       21 passed, 21 total
+Snapshots:   0 total
+Time:        2.325 s, estimated 3 s
