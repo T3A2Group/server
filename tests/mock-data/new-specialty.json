@@ -1,0 +1,11 @@
+{
+  "name": "Sample name",
+  "price": "0",
+  "user": "req.user._id",
+  "image": "/images/sample.jpg",
+  "category": "specialty",
+  "countInStock": "0",
+  "numReviews": "0",
+  "description": "Sample Gift Description",
+  "type": "Sample gift type"
+}

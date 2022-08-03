@@ -1,0 +1,26 @@
+ PASS  tests/villaController.int.test.js
+
+  Test getVillaList, check if server could return correct villa list data.
+    ✓ Should get villa list if keyword is empty.(list all villa) (737 ms)
+    ✓ Should get villa list by typein keyword (search function) (34 ms)
+
+  Test createVilla, check if admin could create new villa, and non-admin can not.
+    ✓ Should create a new villa and check each element is correct, if user is admin (67 ms)
+    ✓ Should not allows non-admin users to create villa (11 ms)
+
+  Test getVillaById, check if the server could return correct single villa data
+    ✓ Should get villa by id (25 ms)
+
+  Test updateVilla, check if admin could maintained villa data and non-admin can not.
+    ✓ Should correctly update villa if user is admin (74 ms)
+    ✓ Should not allows non-admin users to update villa (3 ms)
+    ✓ Should return 404 if villa not found (27 ms)
+    
+  Test deleteVilla, check if admin could correctly delete villa, and non-admin can not.
+    ✓ Should correctly delete villa if user is admin (96 ms)
+    ✓ Should not allowed non-admin users to delete villa (4 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       10 passed, 10 total
+Snapshots:   0 total
+Time:        2.064 s

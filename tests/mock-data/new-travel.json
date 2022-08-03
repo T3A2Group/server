@@ -1,0 +1,16 @@
+{
+  "name": "Sample name",
+  "price": "0",
+  "user": "req.user._id",
+  "image": "/images/sample.jpg",
+  "category": "travel",
+  "countInStock": "0",
+  "numReviews": "0",
+  "description": "Sample Description",
+  "type": "Sample travel 2 days type",
+  "duration": "TEST days",
+  "attractions": {
+    "name": "TEST Tour Hot Spots",
+    "briefInfo": "this is test..."
+  }
+}

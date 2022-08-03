@@ -1,0 +1,42 @@
+ PASS  tests/userController.int.test.js
+
+  Test registerUser, Check if the user could create their account
+    ✓ Should register new user and the account data is same with putin (660 ms)
+    ✓ should return a 400 error if the user already exists (30 ms)
+
+  Test authUser, check if the user could login with email and password
+    ✓ Should login normally, when the email and password are valid (99 ms)
+    ✓ Should return a 400 error if the user put wrong password (96 ms)
+    ✓ Should return a 400 error if user put wrong email (24 ms)
+
+  Test getUserProfile, check if the logged-in user could get their profile
+    ✓ Should return a user profile, when login(with token) (56 ms)
+    ✓ Should return a 401 error if the user is not logged in (4 ms)
+
+  Test updateUserProfile, when user is logged in
+    ✓ Should update a user profile when logged in(with token) (126 ms)
+    ✓ Should return a 401 error if the user is not logged in (2 ms)
+
+  Test getUserById, check if the Admin could get user's profile by use id
+    ✓ Should return a user profile, when login admin acount (admin token) (45 ms)
+    ✓ Should return a 401 error if the user is not logged in (2 ms)
+    ✓ Should return a 401 error if the user is not admin (23 ms)
+    ✓ Should return a 404 error if the user is not found (46 ms)
+    ✓ Should return a 500 error if the user id is not valid (25 ms)
+
+  Test updateSelectUser, Only admin is allowed to update user by select(use user id)
+    ✓ Should update a user select, when logged in is admin (149 ms)
+    ✓ Should not allowed update a user select, when logged in is not admin (23 ms)
+    ✓ Should not allowed update a selected user profile, when user not logged in (2 ms)
+    ✓ Should return a 404 error if the user is not found (45 ms)
+    ✓ Should return a 500 error if the user id is not valid (24 ms)
+    
+  Test deleteUser, Only admin is allowed to delete user account
+    ✓ Should not allowed delete a user, when user not logged in (23 ms)
+    ✓ Should not allowed delete a user, when logged in is not admin (45 ms)
+    ✓ Should delete a user, when logged in is admin (91 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       22 passed, 22 total
+Snapshots:   0 total
+Time:        2.766 s, estimated 3 s

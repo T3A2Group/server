@@ -1,0 +1,13 @@
+{
+  "name": "Sample name",
+  "price": "0",
+  "user": "req.user._id",
+  "image": "/images/sample.jpg",
+  "category": "villa",
+  "countInStock": "0",
+  "numReviews": "0",
+  "description": "Sample Description",
+  "roomNums": "2",
+  "maxPeople": "4",
+  "type": "Sample view type"
+}

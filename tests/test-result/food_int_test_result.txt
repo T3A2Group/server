@@ -1,0 +1,26 @@
+PASS  tests/foodController.int.test.js
+
+  Test getFoodList, check if server could return correct food list data.
+    ✓ Should get food list if keyword is empty.(list all food) (481 ms)
+    ✓ Should get food list by typein keyword (search function) (37 ms)
+
+  Test createFood, check if admin could create new food, and non-admin can not.
+    ✓ Should create a new food and check each element is correct, if user is admin (59 ms)
+    ✓ Should not allows non-admin users to create food (5 ms)
+
+  Test getFoodById, check if the server could return correct single food data
+    ✓ Should get food by id (26 ms)
+
+  Test updateFood, check if admin could maintained food data and non-admin can not.
+    ✓ Should correctly update food if user is admin (75 ms)
+    ✓ Should not allows non-admin users to update food (3 ms)
+    ✓ Should return 404 if food not found (26 ms)
+
+  Test deleteFood, check if admin could correctly delete food, and non-admin can not.
+    ✓ Should correctly delete food if user is admin (93 ms)
+    ✓ Should not allowed non-admin users to delete food (3 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       10 passed, 10 total
+Snapshots:   0 total
+Time:        1.848 s, estimated 3 s

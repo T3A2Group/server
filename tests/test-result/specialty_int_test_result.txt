@@ -1,0 +1,26 @@
+ PASS  tests/specialtyController.int.test.js
+
+  Test getSpecialtyList, check if server could return correct specialty list data.
+    ✓ Should get specialty list if keyword is empty.(list all specialty) (493 ms)
+    ✓ Should get specialty list by typein keyword (search function) (32 ms)
+
+  Test createSpecialty, check if admin could create new Specialty, and non-admin can not.
+    ✓ Should create a new specialty and check each element is correct, if user is admin (58 ms)
+    ✓ Should not allows non-admin users to create Specialty (6 ms)
+
+  Test getSpecialtyById, check if the server could return correct single specialty data
+    ✓ Should get specialty by id (22 ms)
+
+  Test updateSpecialty, check if admin could maintained specialty data and non-admin can not.
+    ✓ Should correctly update specialty if user is admin (97 ms)
+    ✓ Should not allows non-admin users to update specialty (3 ms)
+    ✓ Should return 404 if specialty not found (27 ms)
+    
+  Test deleteSpecialty, check if admin could correctly delete specialty, and non-admin can not.
+    ✓ Should correctly delete specialty if user is admin (94 ms)
+    ✓ Should not allowed non-admin users to delete specialty (4 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       10 passed, 10 total
+Snapshots:   0 total
+Time:        1.773 s, estimated 2 s
