@@ -1,18 +1,9 @@
-import { 
-  getSpecialtyList,
-  getSpecialtyById,
-  deleteSpecialty,
-  createSpecialty,
-  updateSpecialty,
-  createSpecialtyReview,
-} from '../controllers/specialtyControllers.js';
 import request from "supertest";
 import app from "../server.js";
 import newSpecialty from "./mock-data/new-specialty.json";
 import Specialty from "../models/products/specialtyModel.js";
 import adminUser from "./mock-data/admin-user.json";
 import generateToken from "../utils/generateToken.js";
-
 
 const adminToken = generateToken(adminUser._id);
 
@@ -23,20 +14,19 @@ describe("Test getSpecialtyList, check if server could return correct specialty 
   // Test for getSpecialtyList
   // GET /api/specialty
   it("Should get specialty list if keyword is empty.(list all specialty)", async () => {
-    const response = await request(app)
-      .get(specialtyUrl);
+    const response = await request(app).get(specialtyUrl);
     expect(response.status).toBe(200); // check status code
     expect(response.body).not.toBeNull(); // check if have specialty list return
-  })
+  });
 
   it("Should get specialty list by typein keyword (search function)", async () => {
     const response = await request(app)
       .get(specialtyUrl)
-      .send({keyword: "a"});
+      .send({ keyword: "a" });
     expect(response.status).toBe(200); // check status code
     expect(response.body).not.toBeNull(); // check if have specialty list return
-  })
-})
+  });
+});
 
 // test Create specialty
 // POST /api/specialty
@@ -51,21 +41,18 @@ describe("Test createSpecialty, check if admin could create new Specialty, and n
       .send(newSpecialty);
     expect(response.status).toBe(201); // check status code
     expect(response.body).toHaveProperty("_id"); // check if response has _id
-    expect(response.body.name).toBe(newSpecialty.name);  // check response name is correct
-    expect(response.body.description).toBe(newSpecialty.description);  // check response description is correct
-    expect(response.body.category).toBe(newSpecialty.category);  // check response category is correct
+    expect(response.body.name).toBe(newSpecialty.name); // check response name is correct
+    expect(response.body.description).toBe(newSpecialty.description); // check response description is correct
+    expect(response.body.category).toBe(newSpecialty.category); // check response category is correct
     newSpecialty._id = response.body._id; // set _id to newSpecialty
-  })
+  });
 
   it("Should not allows non-admin users to create Specialty", async () => {
-    const response = await request(app)
-      .post(specialtyUrl)
-      .send(newSpecialty);
+    const response = await request(app).post(specialtyUrl).send(newSpecialty);
     expect(response.status).toBe(401); // check status code
     expect(response.body.message).toBe("Not authorized, no token"); // check response message
-  })
-})
-
+  });
+});
 
 // Test Fetch single specialty by id
 // GET /api/specialty/:id
@@ -73,15 +60,16 @@ describe("Test getSpecialtyById, check if the server could return correct single
   // Test for getSpecialtyById
   // GET /api/specialty/:id
   it("Should get specialty by id", async () => {
-    const response = await request(app)
-      .get(specialtyUrl + "/" + newSpecialty._id);
+    const response = await request(app).get(
+      specialtyUrl + "/" + newSpecialty._id
+    );
     expect(response.status).toBe(200); // check status code
-    expect(response.body.name).toBe(newSpecialty.name);  // check response name is correct
-    expect(response.body.description).toBe(newSpecialty.description);  // check response description is correct
-    expect(response.body.category).toBe(newSpecialty.category);  // check response category is correct
+    expect(response.body.name).toBe(newSpecialty.name); // check response name is correct
+    expect(response.body.description).toBe(newSpecialty.description); // check response description is correct
+    expect(response.body.category).toBe(newSpecialty.category); // check response category is correct
     newSpecialty._id = response.body._id; // set _id to newSpecialty
-  })
-})
+  });
+});
 
 // Test update specialty
 // PUT /api/specialty/:id
@@ -99,10 +87,10 @@ describe("Test updateSpecialty, check if admin could maintained specialty data a
         category: "Updated Category",
       });
     expect(response.status).toBe(200); // check status code
-    expect(response.body.name).toBe("Updated Specialty");  // check response name is correct
-    expect(response.body.description).toBe("Updated Description");  // check response description is correct
-    expect(response.body.category).toBe("specialty");  // check response category is not changed
-  })
+    expect(response.body.name).toBe("Updated Specialty"); // check response name is correct
+    expect(response.body.description).toBe("Updated Description"); // check response description is correct
+    expect(response.body.category).toBe("specialty"); // check response category is not changed
+  });
 
   it("Should not allows non-admin users to update specialty", async () => {
     const response = await request(app)
@@ -115,7 +103,7 @@ describe("Test updateSpecialty, check if admin could maintained specialty data a
       });
     expect(response.status).toBe(401); // check status code
     expect(response.body.message).toBe("Not authorized, no token"); // check response message
-  })
+  });
 
   it("Should return 404 if specialty not found", async () => {
     const response = await request(app)
@@ -127,8 +115,8 @@ describe("Test updateSpecialty, check if admin could maintained specialty data a
         category: "Updated Category",
       });
     expect(response.status).toBe(500); // check status code
-  })
-})
+  });
+});
 
 // Test delete specialty
 // DELETE /api/specialty/:id
@@ -142,12 +130,13 @@ describe("Test deleteSpecialty, check if admin could correctly delete specialty,
     expect(response.status).toBe(200); // check status code
     let deletedSpecialty = await Specialty.findById(newSpecialty._id);
     expect(deletedSpecialty).toBeFalsy(); // make sure specialty is deleted
-  })
+  });
 
   it("Should not allowed non-admin users to delete specialty", async () => {
-    const response = await request(app)
-      .delete(specialtyUrl + "/" + newSpecialty._id);
+    const response = await request(app).delete(
+      specialtyUrl + "/" + newSpecialty._id
+    );
     expect(response.status).toBe(401); // check status code
     expect(response.body.message).toBe("Not authorized, no token"); // check response message
-  })
-})
+  });
+});
