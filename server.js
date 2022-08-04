@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js"; //import db connection config file
-import cors from 'cors';
+import cors from "cors";
 //routes import:
 import villaRoutes from "./routes/villaRoutes.js";
 import foodRoutes from "./routes/foodRoutes.js";
@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === "development") {
 
 //middleware for parse json
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
 //http://localhost:4000
 app.get("/", (req, res) => {
@@ -78,7 +78,7 @@ const PORT = process.env.PORT || 4000;
 app.listen(
   PORT,
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT} `)
-  );
+);
 
-  // export default app;
-  // when test need export app jest need app been exported
+export default app;
+// when test need export app jest need app been exported

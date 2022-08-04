@@ -1,6 +1,6 @@
 {
-  "name": "TEST1",
-  "email": "test1@test.com",
+  "name": "TEST100",
+  "email": "test100@test.com",
   "password": "123456",
   "isAdmin": "true"
 }

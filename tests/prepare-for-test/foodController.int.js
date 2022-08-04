@@ -1,9 +1,9 @@
 import request from "supertest";
-import app from "../server.js";
-import newFood from "./mock-data/new-food.json";
-import Food from "../models/products/foodModel.js";
-import adminUser from "./mock-data/admin-user.json";
-import generateToken from "../utils/generateToken.js";
+import app from "../../server.js";
+import newFood from "../mock-data/new-food.json";
+import Food from "../../models/products/foodModel.js";
+import adminUser from "../mock-data/admin-user.json";
+import generateToken from "../../utils/generateToken.js";
 
 const adminToken = generateToken(adminUser._id);
 

@@ -5,7 +5,7 @@
       "qty": "2",
       "image": "/images/tasmania-food.jpg",
       "price": "29.99",
-      "product": "62e1cf22d3b326caf90071e3",
+      "product": "62e070fbf31480865f2aa649",
       "category": "Food"
     }
   ],
@@ -14,5 +14,5 @@
   "itemsPrice": "19.99",
   "taxPrice": "1.99",
   "shippingPrice": "10",
-  "totalPrice" : "29.99"
+  "totalPrice": "29.99"
 }
